@@ -504,7 +504,7 @@ function renderHtml(data) {
           "panelRect: " + document.querySelector(".panel").getBoundingClientRect().width.toFixed(1) + "x" + document.querySelector(".panel").getBoundingClientRect().height.toFixed(1),
           "binRect: " + document.querySelector(".bin-card").getBoundingClientRect().width.toFixed(1) + "x" + document.querySelector(".bin-card").getBoundingClientRect().height.toFixed(1),
           "bodyBg: " + bodyStyles.backgroundColor
-        ].join("\n");
+        ].join("\\n");
       }
 
       window.addEventListener("resize", applyViewportMode);
