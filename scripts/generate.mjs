@@ -186,7 +186,7 @@ function renderHtml(data) {
         --card-pad-y: clamp(8px, 1.1vmin, 12px);
         --card-pad-x: clamp(8px, 1.1vmin, 12px);
         --gap: clamp(8px, 1.2vmin, 14px);
-        --img-size: clamp(78px, 10vmin, 116px);
+        --img-size: clamp(120px, 18vmin, 220px);
         background: #f5f8ef;
       }
 
@@ -310,13 +310,18 @@ function renderHtml(data) {
       }
 
       body.compact .bin-card {
-        align-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         height: 100%;
         border-radius: clamp(10px, 1.4vmin, 16px);
+        gap: clamp(12px, 2vmin, 22px);
       }
 
       body.compact .bin-card h2 {
-        font-size: clamp(1rem, 1.8vmin, 1.25rem);
+        font-size: clamp(1.2rem, 2.1vmin, 1.8rem);
+        max-width: 18ch;
       }
 
       body.compact footer {
@@ -365,7 +370,7 @@ function renderHtml(data) {
 
       @media (max-height: 700px) {
         body.compact {
-          --img-size: clamp(64px, 8.2vmin, 92px);
+          --img-size: clamp(88px, 14vmin, 140px);
         }
 
         body.compact h1 {
@@ -377,7 +382,7 @@ function renderHtml(data) {
         }
 
         body.compact .bin-card h2 {
-          font-size: clamp(0.85rem, 1.45vmin, 1rem);
+          font-size: clamp(0.95rem, 1.7vmin, 1.2rem);
         }
       }
 
