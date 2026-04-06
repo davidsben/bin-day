@@ -180,6 +180,15 @@ function renderHtml(data) {
         overflow: hidden;
       }
 
+      body.compact {
+        --page-pad: clamp(4px, 0.9vmin, 10px);
+        --section-pad: clamp(10px, 1.8vmin, 18px);
+        --card-pad-y: clamp(8px, 1.2vmin, 14px);
+        --card-pad-x: clamp(8px, 1.2vmin, 12px);
+        --gap: clamp(8px, 1.1vmin, 12px);
+        --img-size: clamp(52px, 8vmin, 88px);
+      }
+
       main {
         height: 100dvh;
         display: grid;
@@ -262,6 +271,41 @@ function renderHtml(data) {
         font-size: clamp(0.7rem, 1.5vmin, 0.9rem);
       }
 
+      body.compact .panel {
+        width: min(1200px, 100%);
+        grid-template-rows: auto 1fr;
+      }
+
+      body.compact .hero {
+        padding-bottom: clamp(6px, 1vmin, 10px);
+      }
+
+      body.compact .eyebrow {
+        margin-bottom: 4px;
+      }
+
+      body.compact h1 {
+        font-size: clamp(1.4rem, 3.6vmin, 3rem);
+      }
+
+      body.compact .subhead {
+        margin-top: 6px;
+        font-size: clamp(0.72rem, 1.2vmin, 0.95rem);
+      }
+
+      body.compact .bins {
+        grid-template-columns: repeat(${Math.min(Math.max(data.bins.length, 1), 4)}, minmax(0, 1fr));
+        align-content: stretch;
+      }
+
+      body.compact .bin-card h2 {
+        font-size: clamp(0.72rem, 1.35vmin, 0.95rem);
+      }
+
+      body.compact footer {
+        display: none;
+      }
+
       @media (max-width: 760px) {
         .bins {
           grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -295,6 +339,12 @@ function renderHtml(data) {
           margin-top: 8px;
         }
       }
+
+      @media (max-aspect-ratio: 16/9) {
+        body.compact .bins {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -316,6 +366,12 @@ function renderHtml(data) {
         </footer>
       </section>
     </main>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("compact") === "1") {
+        document.body.classList.add("compact");
+      }
+    </script>
   </body>
 </html>`;
 }
