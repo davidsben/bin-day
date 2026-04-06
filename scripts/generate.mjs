@@ -275,45 +275,25 @@ function renderHtml(data) {
         font-size: clamp(0.7rem, 1.5vmin, 0.9rem);
       }
 
-      @media (min-aspect-ratio: 14/9) {
-        .panel {
-          height: calc(100dvh - (var(--page-pad) * 2));
-        }
-
-        .bins {
-          height: 100%;
-          align-content: stretch;
-        }
-
-        .bin-card {
-          height: 100%;
-        }
-
-        .bin-card img {
-          width: clamp(110px, 14vmin, 190px);
-          height: clamp(110px, 14vmin, 190px);
-        }
-
-        .bin-card h2 {
-          font-size: clamp(1.2rem, 2.4vmin, 1.9rem);
-        }
-      }
-
-      body.fill-cards {
+      body.fill-cards,
+      body:not(.compact) {
         --img-size: clamp(120px, 15vmin, 210px);
         --card-title-size: clamp(1.2rem, 2.5vmin, 1.95rem);
       }
 
-      body.fill-cards .panel {
+      body.fill-cards .panel,
+      body:not(.compact) .panel {
         height: calc(100dvh - (var(--page-pad) * 2));
       }
 
-      body.fill-cards .bins {
+      body.fill-cards .bins,
+      body:not(.compact) .bins {
         height: 100%;
         align-content: stretch;
       }
 
-      body.fill-cards .bin-card {
+      body.fill-cards .bin-card,
+      body:not(.compact) .bin-card {
         height: 100%;
       }
 
@@ -440,6 +420,26 @@ function renderHtml(data) {
       body.compact .bins {
         width: 100%;
       }
+
+      .debug {
+        display: none;
+        position: fixed;
+        right: 8px;
+        bottom: 8px;
+        z-index: 9999;
+        max-width: min(420px, calc(100vw - 16px));
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: rgba(20, 28, 18, 0.88);
+        color: #f3f7ef;
+        font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
+        white-space: pre-wrap;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+      }
+
+      body.debug .debug {
+        display: block;
+      }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -461,22 +461,50 @@ function renderHtml(data) {
         </footer>
       </section>
     </main>
+    <aside class="debug" id="debug"></aside>
     <script>
       const params = new URLSearchParams(window.location.search);
       if (params.get("compact") === "1") {
         document.body.classList.add("compact");
+      }
+      if (params.get("debug") === "1") {
+        document.body.classList.add("debug");
       }
 
       function applyViewportMode() {
         const width = window.innerWidth;
         const height = window.innerHeight;
         const ratio = width / Math.max(height, 1);
-        const shouldFillCards =
-          !document.body.classList.contains("compact") &&
-          ratio >= 1.45 &&
-          height <= 900;
+        const shouldFillCards = !document.body.classList.contains("compact");
 
         document.body.classList.toggle("fill-cards", shouldFillCards);
+        renderDebug(width, height, ratio, shouldFillCards);
+      }
+
+      function renderDebug(width, height, ratio, shouldFillCards) {
+        const el = document.getElementById("debug");
+        if (!el || !document.body.classList.contains("debug")) {
+          return;
+        }
+
+        const styles = getComputedStyle(document.documentElement);
+        const bodyStyles = getComputedStyle(document.body);
+
+        el.textContent = [
+          "bin-day debug",
+          "viewport: " + width + "x" + height,
+          "ratio: " + ratio.toFixed(3),
+          "compact: " + document.body.classList.contains("compact"),
+          "fillCards: " + shouldFillCards,
+          "imgSize: " + styles.getPropertyValue("--img-size").trim(),
+          "cardTitleSize: " + styles.getPropertyValue("--card-title-size").trim(),
+          "pagePad: " + styles.getPropertyValue("--page-pad").trim(),
+          "sectionPad: " + styles.getPropertyValue("--section-pad").trim(),
+          "bodyClasses: " + document.body.className,
+          "panelRect: " + document.querySelector(".panel").getBoundingClientRect().width.toFixed(1) + "x" + document.querySelector(".panel").getBoundingClientRect().height.toFixed(1),
+          "binRect: " + document.querySelector(".bin-card").getBoundingClientRect().width.toFixed(1) + "x" + document.querySelector(".bin-card").getBoundingClientRect().height.toFixed(1),
+          "bodyBg: " + bodyStyles.backgroundColor
+        ].join("\n");
       }
 
       window.addEventListener("resize", applyViewportMode);
