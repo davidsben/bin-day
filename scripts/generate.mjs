@@ -201,7 +201,6 @@ function renderHtml(data) {
         width: min(980px, 100%);
         max-height: calc(100dvh - (var(--page-pad) * 2));
         background: var(--panel);
-        border: 1px solid var(--ring);
         border-radius: clamp(18px, 3vmin, 28px);
         box-shadow: 0 24px 80px rgba(44, 63, 34, 0.12);
         overflow: hidden;
@@ -250,7 +249,7 @@ function renderHtml(data) {
         padding: var(--card-pad-y) var(--card-pad-x);
         background: rgba(255, 255, 255, 0.72);
         border-radius: clamp(16px, 2.4vmin, 22px);
-        border: 1px solid rgba(31, 44, 29, 0.08);
+        box-shadow: inset 0 0 0 1px rgba(31, 44, 29, 0.04);
         min-width: 0;
       }
 
