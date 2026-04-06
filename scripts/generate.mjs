@@ -187,6 +187,7 @@ function renderHtml(data) {
         --card-pad-x: clamp(8px, 1.1vmin, 12px);
         --gap: clamp(8px, 1.2vmin, 14px);
         --img-size: clamp(78px, 10vmin, 116px);
+        background: #f5f8ef;
       }
 
       main {
@@ -277,9 +278,9 @@ function renderHtml(data) {
         max-height: 100dvh;
         grid-template-rows: auto 1fr;
         border-radius: 0;
-        border-left: 0;
-        border-right: 0;
+        border: 0;
         box-shadow: none;
+        backdrop-filter: none;
       }
 
       body.compact .hero {
@@ -305,10 +306,13 @@ function renderHtml(data) {
         grid-template-columns: repeat(${Math.min(Math.max(data.bins.length, 1), 4)}, minmax(0, 1fr));
         align-content: stretch;
         padding-top: clamp(4px, 0.8vmin, 8px);
+        height: 100%;
       }
 
       body.compact .bin-card {
         align-content: center;
+        height: 100%;
+        border-radius: clamp(10px, 1.4vmin, 16px);
       }
 
       body.compact .bin-card h2 {
@@ -375,6 +379,16 @@ function renderHtml(data) {
         body.compact .bin-card h2 {
           font-size: clamp(0.85rem, 1.45vmin, 1rem);
         }
+      }
+
+      body.compact main {
+        place-items: stretch;
+        padding: 0;
+      }
+
+      body.compact .hero,
+      body.compact .bins {
+        width: 100%;
       }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
