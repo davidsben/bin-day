@@ -156,8 +156,8 @@ function renderHtml(data) {
         --text: #1f2c1d;
         --muted: #5a6f56;
         --ring: rgba(31, 44, 29, 0.08);
-        --page-pad: clamp(10px, 2.2vmin, 24px);
-        --section-pad: clamp(14px, 2.8vmin, 32px);
+        --page-pad: clamp(2px, 0.6vmin, 8px);
+        --section-pad: clamp(12px, 1.8vmin, 24px);
         --card-pad-y: clamp(12px, 2vmin, 22px);
         --card-pad-x: clamp(10px, 1.8vmin, 16px);
         --gap: clamp(10px, 1.8vmin, 18px);
@@ -198,7 +198,7 @@ function renderHtml(data) {
       }
 
       .panel {
-        width: min(980px, 100%);
+        width: 100%;
         max-height: calc(100dvh - (var(--page-pad) * 2));
         background: var(--panel);
         border-radius: clamp(18px, 3vmin, 28px);
@@ -269,6 +269,21 @@ function renderHtml(data) {
         padding: 0 var(--section-pad) var(--section-pad);
         color: var(--muted);
         font-size: clamp(0.7rem, 1.5vmin, 0.9rem);
+      }
+
+      @media (min-aspect-ratio: 14/9) {
+        .panel {
+          height: calc(100dvh - (var(--page-pad) * 2));
+        }
+
+        .bins {
+          height: 100%;
+          align-content: stretch;
+        }
+
+        .bin-card {
+          height: 100%;
+        }
       }
 
       body.compact .panel {
