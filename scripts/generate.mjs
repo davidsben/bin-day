@@ -156,111 +156,143 @@ function renderHtml(data) {
         --text: #1f2c1d;
         --muted: #5a6f56;
         --ring: rgba(31, 44, 29, 0.08);
+        --page-pad: clamp(10px, 2.2vmin, 24px);
+        --section-pad: clamp(14px, 2.8vmin, 32px);
+        --card-pad-y: clamp(12px, 2vmin, 22px);
+        --card-pad-x: clamp(10px, 1.8vmin, 16px);
+        --gap: clamp(10px, 1.8vmin, 18px);
+        --img-size: clamp(64px, 11vmin, 112px);
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html,
       body {
         margin: 0;
-        min-height: 100vh;
+        height: 100%;
         font-family: "Barlow", "Segoe UI", sans-serif;
         background:
           radial-gradient(circle at top left, rgba(113, 161, 83, 0.18), transparent 30%),
           linear-gradient(135deg, #f4f8f0 0%, #e5eedc 100%);
         color: var(--text);
+        overflow: hidden;
       }
 
       main {
-        min-height: 100vh;
+        height: 100dvh;
         display: grid;
         place-items: center;
-        padding: 24px;
+        padding: var(--page-pad);
       }
 
       .panel {
         width: min(980px, 100%);
+        max-height: calc(100dvh - (var(--page-pad) * 2));
         background: var(--panel);
         border: 1px solid var(--ring);
-        border-radius: 28px;
+        border-radius: clamp(18px, 3vmin, 28px);
         box-shadow: 0 24px 80px rgba(44, 63, 34, 0.12);
         overflow: hidden;
         backdrop-filter: blur(10px);
+        display: grid;
+        grid-template-rows: auto 1fr auto;
       }
 
       .hero {
-        padding: 32px 32px 20px;
+        padding: var(--section-pad) var(--section-pad) clamp(10px, 1.6vmin, 20px);
       }
 
       .eyebrow {
         margin: 0 0 8px;
         color: var(--muted);
-        font-size: 0.95rem;
+        font-size: clamp(0.75rem, 1.6vmin, 0.95rem);
         text-transform: uppercase;
         letter-spacing: 0.08em;
       }
 
       h1 {
         margin: 0;
-        font-size: clamp(2.2rem, 5vw, 4.5rem);
+        font-size: clamp(1.7rem, 5.2vmin, 4.5rem);
         line-height: 0.95;
       }
 
       .subhead {
         margin: 14px 0 0;
         color: var(--muted);
-        font-size: clamp(1rem, 1.6vw, 1.15rem);
+        font-size: clamp(0.82rem, 1.9vmin, 1.15rem);
       }
 
       .bins {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 18px;
-        padding: 0 32px 32px;
+        grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
+        gap: var(--gap);
+        padding: 0 var(--section-pad) var(--section-pad);
+        align-content: center;
       }
 
       .bin-card {
         display: grid;
         justify-items: center;
         text-align: center;
-        gap: 12px;
-        padding: 22px 16px;
+        gap: clamp(8px, 1.4vmin, 12px);
+        padding: var(--card-pad-y) var(--card-pad-x);
         background: rgba(255, 255, 255, 0.72);
-        border-radius: 22px;
+        border-radius: clamp(16px, 2.4vmin, 22px);
         border: 1px solid rgba(31, 44, 29, 0.08);
+        min-width: 0;
       }
 
       .bin-card img {
-        width: 112px;
-        height: 112px;
+        width: var(--img-size);
+        height: var(--img-size);
         object-fit: contain;
       }
 
       .bin-card h2 {
         margin: 0;
-        font-size: 1.15rem;
+        font-size: clamp(0.85rem, 2vmin, 1.15rem);
         line-height: 1.2;
       }
 
       footer {
-        padding: 0 32px 24px;
+        padding: 0 var(--section-pad) var(--section-pad);
         color: var(--muted);
-        font-size: 0.9rem;
+        font-size: clamp(0.7rem, 1.5vmin, 0.9rem);
       }
 
-      @media (max-width: 640px) {
-        .hero {
-          padding: 24px 24px 12px;
-        }
-
+      @media (max-width: 760px) {
         .bins {
-          padding: 0 24px 24px;
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+      }
 
-        footer {
-          padding: 0 24px 24px;
+      @media (max-width: 460px) {
+        .bins {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-height: 900px) {
+        .subhead {
+          margin-top: 10px;
+        }
+      }
+
+      @media (max-height: 760px) {
+        .bins {
+          grid-template-columns: repeat(${Math.min(Math.max(data.bins.length, 1), 3)}, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-height: 620px) {
+        .eyebrow {
+          margin-bottom: 4px;
+        }
+
+        .subhead {
+          margin-top: 8px;
         }
       }
     </style>
