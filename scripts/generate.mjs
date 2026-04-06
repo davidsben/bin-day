@@ -181,12 +181,12 @@ function renderHtml(data) {
       }
 
       body.compact {
-        --page-pad: clamp(4px, 0.9vmin, 10px);
-        --section-pad: clamp(10px, 1.8vmin, 18px);
-        --card-pad-y: clamp(8px, 1.2vmin, 14px);
-        --card-pad-x: clamp(8px, 1.2vmin, 12px);
-        --gap: clamp(8px, 1.1vmin, 12px);
-        --img-size: clamp(52px, 8vmin, 88px);
+        --page-pad: 0px;
+        --section-pad: clamp(8px, 1.2vmin, 14px);
+        --card-pad-y: clamp(8px, 1.1vmin, 12px);
+        --card-pad-x: clamp(8px, 1.1vmin, 12px);
+        --gap: clamp(8px, 1.2vmin, 14px);
+        --img-size: clamp(78px, 10vmin, 116px);
       }
 
       main {
@@ -272,34 +272,47 @@ function renderHtml(data) {
       }
 
       body.compact .panel {
-        width: min(1200px, 100%);
+        width: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
         grid-template-rows: auto 1fr;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        box-shadow: none;
       }
 
       body.compact .hero {
-        padding-bottom: clamp(6px, 1vmin, 10px);
+        padding-top: clamp(10px, 1.6vmin, 16px);
+        padding-bottom: clamp(4px, 0.8vmin, 8px);
       }
 
       body.compact .eyebrow {
         margin-bottom: 4px;
+        font-size: clamp(0.8rem, 1.2vmin, 0.95rem);
       }
 
       body.compact h1 {
-        font-size: clamp(1.4rem, 3.6vmin, 3rem);
+        font-size: clamp(2rem, 4.8vmin, 3.8rem);
       }
 
       body.compact .subhead {
-        margin-top: 6px;
-        font-size: clamp(0.72rem, 1.2vmin, 0.95rem);
+        margin-top: 4px;
+        font-size: clamp(0.95rem, 1.7vmin, 1.15rem);
       }
 
       body.compact .bins {
         grid-template-columns: repeat(${Math.min(Math.max(data.bins.length, 1), 4)}, minmax(0, 1fr));
         align-content: stretch;
+        padding-top: clamp(4px, 0.8vmin, 8px);
+      }
+
+      body.compact .bin-card {
+        align-content: center;
       }
 
       body.compact .bin-card h2 {
-        font-size: clamp(0.72rem, 1.35vmin, 0.95rem);
+        font-size: clamp(1rem, 1.8vmin, 1.25rem);
       }
 
       body.compact footer {
@@ -343,6 +356,24 @@ function renderHtml(data) {
       @media (max-aspect-ratio: 16/9) {
         body.compact .bins {
           grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-height: 700px) {
+        body.compact {
+          --img-size: clamp(64px, 8.2vmin, 92px);
+        }
+
+        body.compact h1 {
+          font-size: clamp(1.6rem, 4vmin, 3rem);
+        }
+
+        body.compact .subhead {
+          font-size: clamp(0.82rem, 1.35vmin, 1rem);
+        }
+
+        body.compact .bin-card h2 {
+          font-size: clamp(0.85rem, 1.45vmin, 1rem);
         }
       }
     </style>
