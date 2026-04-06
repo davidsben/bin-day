@@ -299,13 +299,13 @@ function renderHtml(data) {
 
       body.fill-cards .bin-card img,
       body:not(.compact) .bin-card img {
-        width: clamp(120px, 15vmin, 210px);
-        height: clamp(120px, 15vmin, 210px);
+        width: clamp(150px, 22vh, 240px);
+        height: clamp(150px, 22vh, 240px);
       }
 
       body.fill-cards .bin-card h2,
       body:not(.compact) .bin-card h2 {
-        font-size: clamp(1.2rem, 2.5vmin, 1.95rem);
+        font-size: clamp(1.35rem, 3.6vh, 2.4rem);
       }
 
       body.compact .panel {
