@@ -136,7 +136,6 @@ function renderHtml(data) {
       (bin) => `
         <article class="bin-card bin-card--${escapeHtml(bin.type)}">
           <img src="${escapeHtml(bin.imageUrl)}" alt="${escapeHtml(bin.iconAlt)}" />
-          <h2>${escapeHtml(bin.label)}</h2>
         </article>
       `
     )
@@ -262,13 +261,6 @@ function renderHtml(data) {
         object-fit: contain;
       }
 
-      .bin-card h2 {
-        margin: 0;
-        font-size: var(--card-title-size);
-        line-height: 1.2;
-        max-width: 18ch;
-      }
-
       footer {
         padding: 0 var(--section-pad) var(--section-pad);
         color: var(--muted);
@@ -299,13 +291,8 @@ function renderHtml(data) {
 
       body.fill-cards .bin-card img,
       body:not(.compact) .bin-card img {
-        width: clamp(170px, 28vh, 300px);
-        height: clamp(170px, 28vh, 300px);
-      }
-
-      body.fill-cards .bin-card h2,
-      body:not(.compact) .bin-card h2 {
-        font-size: clamp(1.5rem, 4.2vh, 2.8rem);
+        width: clamp(220px, 36vh, 360px);
+        height: clamp(220px, 36vh, 360px);
       }
 
       body.compact .panel {
@@ -352,12 +339,6 @@ function renderHtml(data) {
         justify-content: center;
         height: 100%;
         border-radius: clamp(10px, 1.4vmin, 16px);
-        gap: clamp(12px, 2vmin, 22px);
-      }
-
-      body.compact .bin-card h2 {
-        font-size: clamp(1.2rem, 2.1vmin, 1.8rem);
-        max-width: 18ch;
       }
 
       body.compact footer {
@@ -415,10 +396,6 @@ function renderHtml(data) {
 
         body.compact .subhead {
           font-size: clamp(0.82rem, 1.35vmin, 1rem);
-        }
-
-        body.compact .bin-card h2 {
-          font-size: clamp(0.95rem, 1.7vmin, 1.2rem);
         }
       }
 
@@ -528,7 +505,6 @@ function renderHtml(data) {
         const panel = document.querySelector(".panel");
         const binCard = document.querySelector(".bin-card");
         const binImage = document.querySelector(".bin-card img");
-        const binTitle = document.querySelector(".bin-card h2");
         const panelRect = panel ? panel.getBoundingClientRect() : null;
         const binRect = binCard ? binCard.getBoundingClientRect() : null;
         const binImageRect = binImage ? binImage.getBoundingClientRect() : null;
@@ -549,7 +525,6 @@ function renderHtml(data) {
           "panelRect: " + (panelRect ? panelRect.width.toFixed(1) + "x" + panelRect.height.toFixed(1) : "missing"),
           "binRect: " + (binRect ? binRect.width.toFixed(1) + "x" + binRect.height.toFixed(1) : "missing"),
           "imgRect: " + (binImageRect ? binImageRect.width.toFixed(1) + "x" + binImageRect.height.toFixed(1) : "missing"),
-          "titlePx: " + (binTitle ? getComputedStyle(binTitle).fontSize : "missing"),
           "bodyBg: " + bodyStyles.backgroundColor
         ].join("\\n");
       }
