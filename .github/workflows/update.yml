@@ -3,7 +3,7 @@ name: Update bin day
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 6 * * 1,4"
+    - cron: "17 6 * * 3"
 
 permissions:
   contents: write
