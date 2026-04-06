@@ -421,7 +421,7 @@ function renderHtml(data) {
         width: 100%;
       }
 
-      .debug {
+      .debug-panel {
         display: none;
         position: fixed;
         right: 8px;
@@ -437,7 +437,7 @@ function renderHtml(data) {
         box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
       }
 
-      body.debug .debug {
+      body.debug .debug-panel {
         display: block;
       }
     </style>
@@ -461,7 +461,7 @@ function renderHtml(data) {
         </footer>
       </section>
     </main>
-    <aside class="debug" id="debug"></aside>
+    <aside class="debug-panel" id="debug"></aside>
     <script>
       const params = new URLSearchParams(window.location.search);
       const debugEnabled = params.get("debug") === "1";
