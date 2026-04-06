@@ -162,6 +162,7 @@ function renderHtml(data) {
         --card-pad-x: clamp(10px, 1.8vmin, 16px);
         --gap: clamp(10px, 1.8vmin, 18px);
         --img-size: clamp(64px, 11vmin, 112px);
+        --card-title-size: clamp(1rem, 2.2vmin, 1.5rem);
       }
 
       * {
@@ -263,7 +264,7 @@ function renderHtml(data) {
 
       .bin-card h2 {
         margin: 0;
-        font-size: clamp(1rem, 2.2vmin, 1.5rem);
+        font-size: var(--card-title-size);
         line-height: 1.2;
         max-width: 18ch;
       }
@@ -296,6 +297,24 @@ function renderHtml(data) {
         .bin-card h2 {
           font-size: clamp(1.2rem, 2.4vmin, 1.9rem);
         }
+      }
+
+      body.fill-cards {
+        --img-size: clamp(120px, 15vmin, 210px);
+        --card-title-size: clamp(1.2rem, 2.5vmin, 1.95rem);
+      }
+
+      body.fill-cards .panel {
+        height: calc(100dvh - (var(--page-pad) * 2));
+      }
+
+      body.fill-cards .bins {
+        height: 100%;
+        align-content: stretch;
+      }
+
+      body.fill-cards .bin-card {
+        height: 100%;
       }
 
       body.compact .panel {
@@ -447,6 +466,21 @@ function renderHtml(data) {
       if (params.get("compact") === "1") {
         document.body.classList.add("compact");
       }
+
+      function applyViewportMode() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const ratio = width / Math.max(height, 1);
+        const shouldFillCards =
+          !document.body.classList.contains("compact") &&
+          ratio >= 1.45 &&
+          height <= 900;
+
+        document.body.classList.toggle("fill-cards", shouldFillCards);
+      }
+
+      window.addEventListener("resize", applyViewportMode);
+      applyViewportMode();
     </script>
   </body>
 </html>`;
