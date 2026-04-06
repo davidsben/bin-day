@@ -297,6 +297,17 @@ function renderHtml(data) {
         height: 100%;
       }
 
+      body.fill-cards .bin-card img,
+      body:not(.compact) .bin-card img {
+        width: clamp(120px, 15vmin, 210px);
+        height: clamp(120px, 15vmin, 210px);
+      }
+
+      body.fill-cards .bin-card h2,
+      body:not(.compact) .bin-card h2 {
+        font-size: clamp(1.2rem, 2.5vmin, 1.95rem);
+      }
+
       body.compact .panel {
         width: 100%;
         height: 100dvh;
@@ -511,12 +522,16 @@ function renderHtml(data) {
           return;
         }
 
-        const styles = getComputedStyle(document.documentElement);
+        const rootStyles = getComputedStyle(document.documentElement);
+        const bodyComputed = getComputedStyle(document.body);
         const bodyStyles = getComputedStyle(document.body);
         const panel = document.querySelector(".panel");
         const binCard = document.querySelector(".bin-card");
+        const binImage = document.querySelector(".bin-card img");
+        const binTitle = document.querySelector(".bin-card h2");
         const panelRect = panel ? panel.getBoundingClientRect() : null;
         const binRect = binCard ? binCard.getBoundingClientRect() : null;
+        const binImageRect = binImage ? binImage.getBoundingClientRect() : null;
 
         el.textContent = [
           "bin-day debug",
@@ -524,13 +539,17 @@ function renderHtml(data) {
           "ratio: " + ratio.toFixed(3),
           "compact: " + document.body.classList.contains("compact"),
           "fillCards: " + shouldFillCards,
-          "imgSize: " + styles.getPropertyValue("--img-size").trim(),
-          "cardTitleSize: " + styles.getPropertyValue("--card-title-size").trim(),
-          "pagePad: " + styles.getPropertyValue("--page-pad").trim(),
-          "sectionPad: " + styles.getPropertyValue("--section-pad").trim(),
+          "imgSize(root): " + rootStyles.getPropertyValue("--img-size").trim(),
+          "imgSize(body): " + bodyComputed.getPropertyValue("--img-size").trim(),
+          "cardTitle(root): " + rootStyles.getPropertyValue("--card-title-size").trim(),
+          "cardTitle(body): " + bodyComputed.getPropertyValue("--card-title-size").trim(),
+          "pagePad: " + bodyComputed.getPropertyValue("--page-pad").trim(),
+          "sectionPad: " + bodyComputed.getPropertyValue("--section-pad").trim(),
           "bodyClasses: " + document.body.className,
           "panelRect: " + (panelRect ? panelRect.width.toFixed(1) + "x" + panelRect.height.toFixed(1) : "missing"),
           "binRect: " + (binRect ? binRect.width.toFixed(1) + "x" + binRect.height.toFixed(1) : "missing"),
+          "imgRect: " + (binImageRect ? binImageRect.width.toFixed(1) + "x" + binImageRect.height.toFixed(1) : "missing"),
+          "titlePx: " + (binTitle ? getComputedStyle(binTitle).fontSize : "missing"),
           "bodyBg: " + bodyStyles.backgroundColor
         ].join("\\n");
       }
