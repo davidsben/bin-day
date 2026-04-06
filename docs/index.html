@@ -328,19 +328,43 @@
       
         </section>
         <footer>
-          Updated 06/04/2026, 16:26:40 UTC
+          Updated 06/04/2026, 16:28:43 UTC
         </footer>
       </section>
     </main>
     <aside class="debug" id="debug"></aside>
     <script>
       const params = new URLSearchParams(window.location.search);
+      const debugEnabled = params.get("debug") === "1";
+
+      function showDebugMessage(message) {
+        const el = document.getElementById("debug");
+        if (!el) {
+          return;
+        }
+
+        document.body.classList.add("debug");
+        el.textContent = message;
+      }
+
       if (params.get("compact") === "1") {
         document.body.classList.add("compact");
       }
-      if (params.get("debug") === "1") {
+      if (debugEnabled) {
         document.body.classList.add("debug");
       }
+
+      window.addEventListener("error", (event) => {
+        if (!debugEnabled) {
+          return;
+        }
+
+        const message = event.error && event.error.stack
+          ? event.error.stack
+          : String(event.message || event.error || "Unknown error");
+
+        showDebugMessage("bin-day debug\nerror:\n" + message);
+      });
 
       function applyViewportMode() {
         const width = window.innerWidth;
@@ -360,6 +384,10 @@
 
         const styles = getComputedStyle(document.documentElement);
         const bodyStyles = getComputedStyle(document.body);
+        const panel = document.querySelector(".panel");
+        const binCard = document.querySelector(".bin-card");
+        const panelRect = panel ? panel.getBoundingClientRect() : null;
+        const binRect = binCard ? binCard.getBoundingClientRect() : null;
 
         el.textContent = [
           "bin-day debug",
@@ -372,14 +400,23 @@
           "pagePad: " + styles.getPropertyValue("--page-pad").trim(),
           "sectionPad: " + styles.getPropertyValue("--section-pad").trim(),
           "bodyClasses: " + document.body.className,
-          "panelRect: " + document.querySelector(".panel").getBoundingClientRect().width.toFixed(1) + "x" + document.querySelector(".panel").getBoundingClientRect().height.toFixed(1),
-          "binRect: " + document.querySelector(".bin-card").getBoundingClientRect().width.toFixed(1) + "x" + document.querySelector(".bin-card").getBoundingClientRect().height.toFixed(1),
+          "panelRect: " + (panelRect ? panelRect.width.toFixed(1) + "x" + panelRect.height.toFixed(1) : "missing"),
+          "binRect: " + (binRect ? binRect.width.toFixed(1) + "x" + binRect.height.toFixed(1) : "missing"),
           "bodyBg: " + bodyStyles.backgroundColor
         ].join("\n");
       }
 
       window.addEventListener("resize", applyViewportMode);
-      applyViewportMode();
+      try {
+        applyViewportMode();
+      } catch (error) {
+        if (debugEnabled) {
+          const message = error && error.stack ? error.stack : String(error);
+          showDebugMessage("bin-day debug\nstartup error:\n" + message);
+        } else {
+          throw error;
+        }
+      }
     </script>
   </body>
 </html>
