@@ -1,29 +1,21 @@
 {
   "sourceUrl": "https://secure.derby.gov.uk/binday/BinDays/100030350384?address=117%20Radbourne%20Street,%20Derby,%20DE22%203BW",
   "address": "117 Radbourne Street, Derby, DE22 3BW",
-  "fetchedAt": "2026-04-06T17:25:00.227Z",
-  "nextDate": "2026-04-07",
-  "nextDateLabel": "Tuesday, 7 April 2026",
+  "fetchedAt": "2026-04-08T07:52:53.348Z",
+  "nextDate": "2026-04-14",
+  "nextDateLabel": "Tuesday, 14 April 2026",
   "bins": [
     {
-      "isoDate": "2026-04-07",
-      "displayDate": "Tuesday, 07 April 2026",
-      "label": "Recycling blue bin collection",
-      "iconAlt": "Blue bin",
-      "imageUrl": "https://secure.derby.gov.uk/binday/images/blue-bin.png",
-      "type": "recycling"
+      "isoDate": "2026-04-14",
+      "displayDate": "Tuesday, 14 April 2026",
+      "label": "General waste black bin collection",
+      "iconAlt": "Black bin",
+      "imageUrl": "https://secure.derby.gov.uk/binday/images/black-bin.png",
+      "type": "general-waste"
     },
     {
-      "isoDate": "2026-04-07",
-      "displayDate": "Tuesday, 07 April 2026",
-      "label": "Garden brown bin collection",
-      "iconAlt": "Brown bin",
-      "imageUrl": "https://secure.derby.gov.uk/binday/images/brown-bin.png",
-      "type": "garden"
-    },
-    {
-      "isoDate": "2026-04-07",
-      "displayDate": "Tuesday, 07 April 2026",
+      "isoDate": "2026-04-14",
+      "displayDate": "Tuesday, 14 April 2026",
       "label": "Food waste bin collection",
       "iconAlt": "Food bin",
       "imageUrl": "https://secure.derby.gov.uk/binday/images/food-bin.png",
